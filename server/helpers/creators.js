@@ -109,6 +109,7 @@ const createPlayer = (player, number) => (
     }
     Promise.all(pokemonitems)
       .then((pokemon) => {
+        pokemon = pokemon[0];
         // console.log(pokemon[0].length);
         resolve({
           player: number,

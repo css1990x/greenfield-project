@@ -77,7 +77,7 @@ on what is inside each player object
 */
 
 const games = new Map();
-
+// const playerselection = new Map();
 /* =============================================================== */
 
 /* =============== SOCKET CONNECTION / LOGIC ===================== */
@@ -95,7 +95,7 @@ io.on('connection', (socket) => {
   now ready, and it sends down the game's state to both clients to parse out and render.
 
   */
-
+  // socket.on('enter loading room', (data) => { })
   socket.on('join game', (data) => {
     socket.join(data.gameid);
     const game = games.get(data.gameid);
