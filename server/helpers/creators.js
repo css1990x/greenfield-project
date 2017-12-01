@@ -83,7 +83,7 @@ const createPokemon = (pokemon) => {
   };
 };
 
-const createPlayer = (player, number) => {
+const createPokemonArr = () => {
   const random = () => Math.ceil(Math.random() * 150);
   return new Promise((resolve, reject) => {
     const pokemonCalls = [];
@@ -92,8 +92,24 @@ const createPlayer = (player, number) => {
     }
     Promise.all(pokemonCalls)
       .then((results) => {
-        const pokemon = [];
-        results.forEach(result => pokemon.push(createPokemon(result)));
+        const pokemonmini = [];
+        results.forEach(result => pokemonmini.push(createPokemon(result)));
+        resolve(pokemonmini);
+      })
+      .catch(err => reject(err));
+  });
+};
+
+const createPlayer = (player, number) => (
+  // returns a new promise
+  new Promise((resolve, reject) => {
+    const pokemonitems = [];
+    for (let i = 0; i < 3; i += 1) {
+      pokemonitems.push(createPokemonArr());
+    }
+    Promise.all(pokemonitems)
+      .then((pokemon) => {
+        // console.log(pokemon[0].length);
         resolve({
           player: number,
           name: player.name,
@@ -101,9 +117,15 @@ const createPlayer = (player, number) => {
         });
       })
       .catch(err => reject(err));
-  });
-};
-
+  })
+  // creates a var called pokemoncallsArr = []
+  // pushes a create player with (player, number) into the pokemoncallsArr until pokemoncallsArr = 3
+  // promise.all pokemoncalls
+  // .then
+  // resolve(pokemoncalls)
+  //
+  // .catch(err => reject err)
+);
 // const createTurnlog = (game, turn, type) => {
 const createTurnlog = (player, opponent, turn, type) => {
   const playerPokemonName = player.pokemon[0].name;
@@ -130,4 +152,5 @@ module.exports = {
   createPokemon,
   createPlayer,
   createTurnlog,
+  // createPokemonArr
 };
