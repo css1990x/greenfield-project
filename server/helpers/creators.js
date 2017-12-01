@@ -108,8 +108,10 @@ const createPlayer = (player, number) => (
       pokemonitems.push(createPokemonArr());
     }
     Promise.all(pokemonitems)
-      .then((pokemon) => {
-        pokemon = pokemon[0];
+      .then((pokes) => {
+        // console.log('full arr', pokes[0]);
+        const [pokemon] = pokes;
+        // console.log('destructured', pokemon);
         // console.log(pokemon[0].length);
         resolve({
           player: number,
