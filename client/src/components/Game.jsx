@@ -93,7 +93,6 @@ export default class Game extends Component {
         ));
       },
       playerInitialized: (data) => {
-        console.log(data);
         this.setState({
           [data.player]: true,
           pokemonOptions: data.pokemon,

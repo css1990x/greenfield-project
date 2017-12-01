@@ -102,7 +102,7 @@ io.on('connection', (socket) => {
     if (!game) {
       createPlayer(data, 'player1')
         .then((player1) => {
-          // console.log('data to be returned', player1.pokemon.length, player1.pokemon[0].length);
+          // console.log('data to be returned', player1.pokemon);
           // console.log(data.gameid);
           games.set(data.gameid, {
             player1,
@@ -125,6 +125,8 @@ io.on('connection', (socket) => {
       io.to(socket.id).emit('gamefull', 'this game is full!');
     }
   });
+
+  // socket.on('confirmteam', (data){})
 
   socket.on('chat message', (data) => {
     io.to(data.gameid).emit('chat message', data);
