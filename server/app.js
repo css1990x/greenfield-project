@@ -102,8 +102,8 @@ io.on('connection', (socket) => {
     if (!game) {
       createPlayer(data, 'player1')
         .then((player1) => {
-          console.log('this is player1', player1);
-          console.log('these are pokemon', player1.pokemon);
+          // console.log('this is player1', player1);
+          // console.log('these are pokemon', player1.pokemon);
           // console.log('data to be returned', player1.pokemon);
           // console.log(data.gameid);
           games.set(data.gameid, {

@@ -87,9 +87,15 @@ const createPokemonArr = () => {
   const random = () => Math.ceil(Math.random() * 150);
   return new Promise((resolve, reject) => {
     const pokemonCalls = [];
-    for (let i = 0; i < 3; i += 1) {
-      const randomnum = random();
-      pokemonCalls.push(db.Pokemon.findOne({ where: { id: randomnum } }));
+    const indices = [];
+    while (pokemonCalls.length < 9) {
+      let randomnum = random();
+      if (!indices.includes(randomnum)) {
+        pokemonCalls.push(db.Pokemon.findOne({ where: { id: randomnum } }));
+        indices.push(randomnum);
+      } else {
+        randomnum = random();
+      }
     }
     Promise.all(pokemonCalls)
       .then((results) => {
@@ -104,14 +110,16 @@ const createPokemonArr = () => {
 const createPlayer = (player, number) => (
   // returns a new promise
   new Promise((resolve, reject) => {
-    const pokemonitems = [];
-    for (let i = 0; i < 3; i += 1) {
-      pokemonitems.push(createPokemonArr());
-    }
-    Promise.all(pokemonitems)
+    createPokemonArr()
       .then((pokes) => {
+        // console.log('pokes length', pokes.length);
+        let pokeArr = [];
+        for (let i = 0; i < 9; i += 3) {
+          pokeArr.push(pokes.slice(i, (i + 3)));
+        }
+        // console.log(pokeArr);
         // console.log('full arr', pokes[0]);
-        const [pokemon] = pokes;
+        const [pokemon] = pokeArr;
         // console.log('destructured', pokemon);
         // console.log(pokemon[0].length);
         resolve({
