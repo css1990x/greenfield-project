@@ -88,7 +88,8 @@ const createPokemonArr = () => {
   return new Promise((resolve, reject) => {
     const pokemonCalls = [];
     for (let i = 0; i < 3; i += 1) {
-      pokemonCalls.push(db.Pokemon.findOne({ where: { id: random() } }));
+      const randomnum = random();
+      pokemonCalls.push(db.Pokemon.findOne({ where: { id: randomnum } }));
     }
     Promise.all(pokemonCalls)
       .then((results) => {
